@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        @font-face {
+            font-family: 'SF Pro Soft';
+            src: url('/public/fonts/recreated/SF Pro - Semibold Soft.otf') format('opentype');
+        }
+
+        @font-face {
+            font-family: 'SF Pro Rails';
+            src: url('/public/fonts/recreated/SF Pro - Semibold Rails.otf') format('opentype');
+        }
+
+        @font-face {
+            font-family: 'SF Pro Stencil';
+            src: url('/public/fonts/recreated/SF Pro - Semibold Stencil.otf') format('opentype');
+        }
+
+        @font-face {
+            font-family: 'SF Pro Rounded';
+            src: url('/public/fonts/recreated/SF Pro - Semibold Rounded.otf') format('opentype');
+        }
+
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #000000;
+            transition: background 2s;
+        }
+        .time {
+            font-size: 20em;
+            color: rgba(255, 255, 255, 0.5);
+            font-family: 'SF Pro Soft', sans-serif;
+            font-stretch: expanded;
+            /* font-family: 'Stretch Pro Regular', sans-serif; */
+        }
+    </style>
+</head>
+<body>
+    <div class="time" id="time"></div>
+
+    <script>
+        function updateTimeAndBackground() {
+            const now = new Date();
+            const hours = now.getHours();
+            const minutes = now.getMinutes();
+            const seconds = now.getSeconds();
+            // const timeString = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            const timeString = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+
+            document.getElementById('time').textContent = timeString;
+    
+            let gradientStart, gradientEnd;
+            if (hours < 6) {
+                // Night
+                gradientStart = '#000428';
+                gradientEnd = '#000428';
+            } else if (hours < 12) {
+                // Morning
+                gradientStart = '#FF7E5F';
+                gradientEnd = '#8476EA';
+            } else if (hours < 18) {
+                // Day
+                gradientStart = '#00B4DB';
+                gradientEnd = '#0083B0';
+            } else if (hours < 20) {
+                // Evening
+                gradientStart = '#FF7E5F';
+                gradientEnd = '#8476EA';
+            } else {
+                // Night
+                gradientStart = '#000428';
+                gradientEnd = '#000428';
+            }
+    
+            document.body.style.background = `linear-gradient(to right, ${gradientStart}, ${gradientEnd})`;
+        }
+    
+        setInterval(updateTimeAndBackground, 1000);
+    </script>
+</body>
+</html>
